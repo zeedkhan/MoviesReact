@@ -1,0 +1,122 @@
+.movieScreen__container {
+  height: 100%;
+}
+
+.movieScreen__leftInfo {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.movieScreen__leftInfo > p {
+  font-size: 14px;
+}
+
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: black;
+}
+
+.movieScreen__leftImage {
+  max-height: 450px;
+  height: 100%;
+}
+
+.movieScreen__leftButton {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.movieScreen__left {
+  display: flex;
+  justify-content: center;
+}
+
+.movieScreen__Rating {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 75%;
+  left: 25%;
+  justify-content: space-around;
+}
+
+.movieScreen__Release {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 75%;
+  left: 50%;
+  justify-content: space-around;
+}
+
+.movieScreen__leftTitle {
+  display: flex;
+  justify-content: center;
+}
+
+
+.name__price > img {
+  border-radius: 20px;
+  -webkit-box-shadow: 0px -28px 14px -1px rgba(50, 50, 50, 0.6);
+  -moz-box-shadow:    0px -28px 14px -1px rgba(50, 50, 50, 0.6);
+  box-shadow:         0px -28px 14px -1px rgba(50, 50, 50, 0.6);
+}
+
+
+@media screen and (max-width: 700px) {
+  .movieScreen__leftTitle {
+    margin-bottom: 1rem;
+  }
+  .movieScreen__leftImage {
+    align-self: center;
+    max-width: 100%;
+    max-height: 400px;
+  }
+  .name {
+    display: flex;
+    flex-direction: column;
+  }
+  .name__price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .movieScreen__Release {
+    margin-left: 15px;
+    font-size: 12px;
+    top: 70%;
+    bottom: 70%;
+  }
+  .movieScreen__Rating {
+    font-size: 12px;
+    top: 70%;
+    bottom: 70%;
+  }
+  .movieScreen__leftButton {
+    margin-top: 25px;
+  }
+  .figure {
+    width: 450px;
+    margin: 0 auto;
+  }
+}
+
+.movieScreen__leftInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+figcaption {
+  max-width: 750px;
+}
+.name {
+  display: flex;
+  justify-content: center;
+}
