@@ -11,7 +11,6 @@ import Movie from "./Movie";
 import requests from "../../requests";
 import CardPayment from "../Payment/CardPayment";
 import Axios from "axios";
-import AddToCart from "../Payment/AddToCart";
 import { useStateValue } from "../redux/StateProvider";
 
 function MovieScreen() {
@@ -21,27 +20,31 @@ function MovieScreen() {
   const [isOpen, setOpen] = useState(false);
   const { id } = useParams();
   const [charge, setCharge] = useState("");
-  const [state, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
 
-  
-    const cart = {
-      email: "zeedkhan.tp@gmail.com",
-      name: "Seed",
-      amount: 15000,
-    };
+  const cart = {
+    email: "zeedkhan.tp@gmail.com",
+    name: "Seed",
+    amount: moviesId.id / 1000,
+  };
+
+  console.log("This is basket", basket);
 
   const addToBasket = () => {
     dispatch({
-      type: 'ADD_TO_CART',
+      type: "ADD_TO_BASKET",
       item: {
         id: id,
+        original_title: moviesId.original_title,
         titile: moviesId.title,
-        price: cart.amount / 100,
-        rating: moviesId.vote_average
-      }
-    })
-  }
-
+        original_language: moviesId.original_language,
+        price: cart.amount,
+        image: `${api_ImageUrl}${moviesId.poster_path}`,
+        rating: moviesId.vote_average,
+        release: moviesId.release_date,
+      },
+    });
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -86,27 +89,28 @@ function MovieScreen() {
     setCharge(resData);
   };
 
-
-  
   console.log(charge);
-  
+
   return (
     <div className="movieScreen__container">
       <div className="movieScreen">
         <div className="movieScreen__left">
           <div className="name">
             <div className="name__price">
-            <img
-              src={`${api_ImageUrl}${moviesId.poster_path}`}
-              alt=""
-              className="movieScreen__leftImage"
+              <img
+                src={`${api_ImageUrl}${moviesId.poster_path}`}
+                alt=""
+                className="movieScreen__leftImage"
               />
               <figure className="figure">
-                <button onClick={addToBasket}>Add</button>
-              <h4>THB {cart.amount / 100}</h4>
-              <CardPayment
-                createCreditCardCharge={createCreditCardCharge}
-                cart={cart}
+                <Button onClick={addToBasket}>Add</Button>
+                <h4>THB {cart.amount}</h4>
+                {/* <Link to="/checkout">
+                  <Button>Buy Now</Button>
+                </Link> */}
+                <CardPayment
+                  createCreditCardCharge={createCreditCardCharge}
+                  cart={cart}
                 />
               </figure>
             </div>
@@ -133,7 +137,7 @@ function MovieScreen() {
                   style={{ width: "38%", marginRight: "25px" }}
                   onClick={() => handleClick(moviesId)}
                   startIcon={<PlayArrowIcon />}
-                  >
+                >
                   Play
                 </Button>
                 <Button
@@ -141,7 +145,7 @@ function MovieScreen() {
                   color="primary"
                   style={{ width: "38%" }}
                   startIcon={<BookmarkIcon />}
-                  >
+                >
                   Save
                 </Button>
               </div>
@@ -155,7 +159,7 @@ function MovieScreen() {
           <p>
             Status <span className="payment__status">{charge.status}</span>
           </p>
-          <p>Total Amount Pay is : THB {charge.amount / 100}</p>
+          <p>Total Amount Pay is : THB {charge.amount}</p>
         </div>
       )}
       {trailerUrl && (

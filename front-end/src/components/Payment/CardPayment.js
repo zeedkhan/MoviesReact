@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import React from "react";
 import Script from "react-load-script";
-import "./CardPayment.css"
+import "./CardPayment.css";
 
 function CardPayment({ createCreditCardCharge, cart }) {
   const handleLoadScript = () => {
@@ -31,7 +31,7 @@ function CardPayment({ createCreditCardCharge, cart }) {
   const omiseCardHandler = () => {
     const OmiseCard = window.OmiseCard;
     OmiseCard.open({
-      amount: cart.amount,
+      amount: cart.amount * 100,
       currency: "THB",
       defaultPaymentMethod: "credit_card",
       onCreateTokenSuccess: (token) => {
@@ -53,7 +53,12 @@ function CardPayment({ createCreditCardCharge, cart }) {
     <div>
       <Script url="https://cdn.omise.co/omise.js" onLoad={handleLoadScript} />
       <form>
-        <Button type="button" onClick={handleOnClick} id="creditCard__CheckOut" className="button">
+        <Button
+          type="button"
+          onClick={handleOnClick}
+          id="creditCard__CheckOut"
+          className="button"
+        >
           Buy Now
         </Button>
       </form>

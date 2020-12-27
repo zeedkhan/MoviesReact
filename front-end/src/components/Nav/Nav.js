@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import "./Nav.css";
 import { Button, Input } from "@material-ui/core";
 import HighQualityIcon from "@material-ui/icons/HighQuality";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MovieSearch from "../Movies/MovieSearch";
+import { useStateValue } from "../redux/StateProvider";
 
 function Nav() {
   const [search, setSearch] = useState("");
   const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=0930d6e169489c706f349c5e382ab610&language=en-TH&query=`;
   const [movie, setMovie] = useState([]);
-  
+  const [{ basket }, dispatch] = useStateValue();
 
   const getMovies = async (API) => {
     const request = await axios.get(API);
@@ -18,53 +20,54 @@ function Nav() {
   };
 
   const removeMovie = () => {
-    setMovie([])
-  }
+    setMovie([]);
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    
+
     if (search) {
       getMovies(searchUrl + search);
     }
-    setSearch('')
+    setSearch("");
   };
 
   const handleOnChange = (e) => {
     setSearch(e.target.value);
   };
 
-
-  const hanleClick = e => {
+  const hanleClick = (e) => {
     e.preventDefault();
-  }
+  };
 
-  console.log(search)
+  console.log(search);
 
   return (
     <>
       <nav className="nav">
-        <Link to="/"
-        onClick={removeMovie}
-        >
+        <Link to="/" onClick={removeMovie}>
           <div className="nav__Left">
             <h3>Movie App</h3>
             <HighQualityIcon fontSize="large" />
           </div>
         </Link>
-          <form onSubmit={onSubmitHandler}>
-            <Input
-              placeholder="Search movie..."
-              style={{ width: "250px", marginRight: "1rem", color: "white" }}
-              onChange={handleOnChange}
-              value={search}
-            />
-          </form>
+        <form onSubmit={onSubmitHandler} class="nav__right">
+          <Input
+            placeholder="Search movie..."
+            style={{ width: "250px", marginRight: "1rem", color: "white" }}
+            onChange={handleOnChange}
+            value={search}
+          />
+          <div>
+            <Link to="/checkout">
+              <ShoppingBasketIcon /> <span>{basket?.length}</span>
+            </Link>
+          </div>
+        </form>
       </nav>
-      <div className="movie__searchContainer"onClick={removeMovie}>
-      {movie.length > 0 && 
-        movie.map((movies) => <MovieSearch key={movies.id} {...movies}/>)
-      }
+      <div className="movie__searchContainer" onClick={removeMovie}>
+        {movie.length > 0 &&
+          movie.map((movies) => <MovieSearch key={movies.id} {...movies} />)}
       </div>
     </>
   );

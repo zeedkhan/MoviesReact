@@ -17,6 +17,12 @@ a {
   text-decoration: none;
 }
 
+.nav__right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .movie__searchContainer {
   display: flex;
   flex-wrap: wrap;
@@ -29,7 +35,4 @@ a {
     padding-bottom: 1rem;
     justify-content: space-around;
   }
-
 }
-
-

@@ -27,7 +27,7 @@ function Movie({ title, fetchUrl }) {
     }
     fetchData();
   }, [fetchUrl]);
-console.log(movies)
+
   const handleClick = (movie) => {
     if (trailerUrl) {
       setTrailerUrl("");
@@ -57,7 +57,7 @@ console.log(movies)
             <Button
               variant="contained"
               style={{
-                borderRadius: '20px',
+                borderRadius: "20px",
                 backgroundColor: "rgba(204, 204, 204, 0.5)",
                 width: "90%",
               }}
